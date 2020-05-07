@@ -36,9 +36,11 @@ export class WeatherPanelComponent implements OnInit {
   }
   
   // encapsulate in interface
-  weatherDataObj : WeatherResponse;
+  // weatherDataObj : WeatherResponse; // not used at the moment
   mainWeatherType:string;
   iconId:string;
+  tempMax:string;
+  tempMin:string;
 
   constructor(public wdObj:WeatherDataService) { }
 
@@ -56,8 +58,8 @@ export class WeatherPanelComponent implements OnInit {
       // this.weatherDataObj.main = this.weatherData['weather'][0]['main'];
       // this.weatherDataObj.icon = this.imageMap[this.weatherDataObj.main];
       // this.weatherDataObj.name = this.weatherData['name'];
-      // this.weatherDataObj.tempMax = this.weatherData['main']['temp_max'];
-      // this.weatherDataObj.tempMin = this.weatherData['main']['temp_min'];
+      this.tempMax = (this.weatherData['main']['temp_max'] - 273.15).toFixed(2) ;// converting kelvin to celcius
+      this.tempMin = (this.weatherData['main']['temp_min'] - 273.15).toFixed(2) ;// converting kelvin to celcius
 
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
       this.iconId=this.weatherData['weather'][0]['icon'];
