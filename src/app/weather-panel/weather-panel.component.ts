@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherDataService } from '../weather-data.service';
 
 @Component({
   selector: 'app-weather-panel',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeatherPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(public wdObj:WeatherDataService) { }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  async getData(){
+    console.log(await this.wdObj.getData("Bangalore"))
   }
 
 }
