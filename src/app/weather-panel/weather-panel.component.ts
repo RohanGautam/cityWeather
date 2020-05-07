@@ -8,6 +8,8 @@ import { WeatherDataService } from '../weather-data.service';
 })
 export class WeatherPanelComponent implements OnInit {
 
+  weatherData:any;
+
   constructor(public wdObj:WeatherDataService) { }
 
   ngOnInit(): void {
@@ -15,7 +17,8 @@ export class WeatherPanelComponent implements OnInit {
   }
 
   async getData(){
-    console.log(await this.wdObj.getData("Bangalore"))
+    this.weatherData = await this.wdObj.getData("Bangalore")
+    console.log(this.weatherData['cod'])
   }
 
 }

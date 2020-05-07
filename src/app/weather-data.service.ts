@@ -16,7 +16,11 @@ export class WeatherDataService {
   }
 
   async getData(cityName:string){
-    this.dataRecieved = await this.callAPI(cityName).toPromise();
-    return this.dataRecieved;
+    try{
+      this.dataRecieved = await this.callAPI(cityName).toPromise();
+      return this.dataRecieved;
+    } catch(error){
+      return {'cod': error.status};
+    }
   }
 }
