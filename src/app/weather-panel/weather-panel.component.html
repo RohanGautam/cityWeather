@@ -13,6 +13,7 @@
     </nb-form-field>
     
     <div *ngIf="validResponse">
+        <h1 id="cityName">{{cityInput}}</h1>
         <p> {{mainWeatherType}} </p>
         <button nbButton (click)="edit()" shape="round" id="editButton" style="margin-left: 8px;">
             <nb-icon icon="edit-outline"></nb-icon>        
