@@ -38,6 +38,7 @@ export class WeatherPanelComponent implements OnInit {
   // encapsulate in interface
   // weatherDataObj : WeatherResponse; // not used at the moment
   mainWeatherType:string;
+  weatherDescription:string;
   iconId:string;
   tempMax:string;
   tempMin:string;
@@ -62,6 +63,7 @@ export class WeatherPanelComponent implements OnInit {
       this.tempMin = (this.weatherData['main']['temp_min'] - 273.15).toFixed(2) ;// converting kelvin to celcius
 
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
+      this.weatherDescription=this.weatherData['weather'][0]['description'];
       this.iconId=this.weatherData['weather'][0]['icon'];
       this.wantToSearch=false; 
       this.errorInInput=false;

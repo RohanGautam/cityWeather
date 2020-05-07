@@ -10,6 +10,7 @@
 * [changing background image with ngStyle](https://stackoverflow.com/a/34875479)
 * [topright of div](https://stackoverflow.com/questions/13114819/positioning-elements-at-top-right-of-div)
 * [Use em instead of px for a responsive-fixed-height kinda situation](https://stackoverflow.com/questions/609517/why-em-instead-of-px)
+* [Display inline stuff](https://stackoverflow.com/a/403149)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.

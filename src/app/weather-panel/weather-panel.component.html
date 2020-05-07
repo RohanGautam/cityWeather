@@ -11,11 +11,12 @@
             <div class="col-6"><img id="placeholderImg" [src]="placeholderPath" alt=""></div>
             <div class="col-6"><h4 id="placeHolderText">Click card to add a city!</h4></div>
         </div>   -->
-        <img id="placeholderImg" [src]="placeholderPath" alt="">   
-        <h4 id="placeHolderText">Click card to add a city!</h4>   
+        <img id="placeholderImg" [src]="placeholderPath" alt="">
+        <h4 id="placeHolderText">Click card to add a city!</h4>
     </div>
-    <div id="formField" *ngIf="wantToSearch" >
-        <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name .." style="width: 100%;">
+    <div id="formField" *ngIf="wantToSearch">
+        <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput
+            placeholder="Enter city name .." style="width: 100%;">
         <button nbButton (click)="search()" (keyup.enter)="search()" shape="round" id="searchButton"
             style="margin: 8px;">
             Search
@@ -24,19 +25,26 @@
         <div>
             <button (click)="null" *ngIf="errorInInput" nbButton status="danger" style="margin: 8px;">
                 <nb-icon icon="close-circle-outline"></nb-icon>
-                Invalid query, try again!
+                Invalid city name, try again!
             </button>
         </div>
         <div style="height: 5em;"></div>
     </div>
 
     <div *ngIf="validResponse">
-        <button nbButton (click)="edit()" shape="round" id="editButton" style="margin-left: 8px;">
+        <button nbButton (click)="edit()" shape="round" id="editButton">
             <nb-icon icon="edit-outline"></nb-icon>
         </button>
         <h1 id="cityName">{{cityInput}}</h1>
-        <p> {{mainWeatherType}} </p>
-        <p>Max is {{tempMax}}, min is {{tempMin}}</p>
+        <p id="weatherDescription"> {{weatherDescription}} </p>
+
+        <div id="temperature">
+            <span><nb-icon icon="thermometer-plus-outline"></nb-icon></span>
+            <span>Max is {{tempMax}} </span>
+            <span><nb-icon icon="thermometer-minus-outline"></nb-icon></span>
+            <span>Min is {{tempMin}}</span>
+        </div>
+
         <!-- <img id="weatherImg" [src]="imageMap[mainWeatherType]" alt="" style="width: 100px;height: auto;"> -->
         <!-- <img [src]="'http://openweathermap.org/img/wn/'+iconId+'.png'" alt="weather icon"> -->
     </div>
