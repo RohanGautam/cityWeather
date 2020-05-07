@@ -1,4 +1,4 @@
-.card{
+.card {
     width: 100%;
     // max-width: 300px;
     height: 300px;
@@ -8,4 +8,11 @@
     align-items: center;
     margin: 8px;
     padding: 8px;
+}
+
+#editButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
 }

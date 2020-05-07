@@ -10,6 +10,7 @@ export class WeatherPanelComponent implements OnInit {
 
   weatherData;
   wantToSearch:boolean=false;
+  fromCard:boolean=false;
   searching:boolean=false;
   validResponse:boolean=false;
   cityInput:string;
@@ -49,7 +50,8 @@ export class WeatherPanelComponent implements OnInit {
       console.log(this.weatherData);
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
       this.iconId=this.weatherData['weather'][0]['icon'];
-      console.log(this.iconId);      
+      console.log(this.iconId);     
+      this.wantToSearch=false; 
     } 
   }
 
@@ -63,6 +65,11 @@ export class WeatherPanelComponent implements OnInit {
 
   showSearchBar(){
     this.wantToSearch = true;
+    this.fromCard=true;
+  }
+
+  edit(){
+    this.wantToSearch=true;
   }
 
 
