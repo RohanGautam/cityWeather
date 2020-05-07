@@ -8,6 +8,7 @@
 * [Angular Http client and json pipe for debugging](https://www.youtube.com/watch?v=_05v0mrNLh0&t=219s)
 * [get input from input field](https://stackoverflow.com/questions/56203795/get-value-input-text-with-button-angular-7)
 * [changing background image with ngStyle](https://stackoverflow.com/a/34875479)
+* [topright of div](https://stackoverflow.com/questions/13114819/positioning-elements-at-top-right-of-div)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.

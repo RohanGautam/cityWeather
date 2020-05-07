@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherDataService } from '../weather-data.service';
+import { WeatherResponse } from '../weatherResponse';
 
 @Component({
   selector: 'app-weather-panel',
@@ -12,8 +13,11 @@ export class WeatherPanelComponent implements OnInit {
   wantToSearch:boolean=false;
   fromCard:boolean=false;
   searching:boolean=false;
+  errorInInput:boolean=false;
   validResponse:boolean=false;
   cityInput:string;
+
+  placeholderPath="assets/images/placeholder.png"
 
   // image mapping - make class?
   imageMap = {
@@ -32,6 +36,7 @@ export class WeatherPanelComponent implements OnInit {
   }
   
   // encapsulate in interface
+  weatherDataObj : WeatherResponse;
   mainWeatherType:string;
   iconId:string;
 
@@ -48,11 +53,21 @@ export class WeatherPanelComponent implements OnInit {
     if(statusCode==200){
       this.validResponse=true;
       console.log(this.weatherData);
+      // this.weatherDataObj.main = this.weatherData['weather'][0]['main'];
+      // this.weatherDataObj.icon = this.imageMap[this.weatherDataObj.main];
+      // this.weatherDataObj.name = this.weatherData['name'];
+      // this.weatherDataObj.tempMax = this.weatherData['main']['temp_max'];
+      // this.weatherDataObj.tempMin = this.weatherData['main']['temp_min'];
+
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
       this.iconId=this.weatherData['weather'][0]['icon'];
       console.log(this.iconId);     
+      console.log(this.iconId);     
       this.wantToSearch=false; 
-    } 
+      this.errorInInput=false;
+    } else{
+      this.errorInInput=true;
+    }
   }
 
   async search(){
@@ -69,7 +84,8 @@ export class WeatherPanelComponent implements OnInit {
   }
 
   edit(){
-    this.wantToSearch=true;
+    this.wantToSearch= !this.wantToSearch;
+    this.validResponse=!this.validResponse;
   }
 
 

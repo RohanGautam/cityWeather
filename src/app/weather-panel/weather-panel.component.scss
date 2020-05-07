@@ -8,6 +8,7 @@
     align-items: center;
     margin: 8px;
     padding: 8px;
+    border-radius: 20px;
 }
 
 #editButton {
@@ -28,4 +29,27 @@
     font-style: normal;
     font-variant: small-caps;
     text-transform: capitalize;
+}
+#addCityIndicator {
+    height: 100%;
+    width: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    font-family: sans-serif;
+    margin: 8px auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#placeholderImg{
+    height: 40%;
+    width: auto;
+    filter: brightness(90%)
+}
+
+#placeHolderText{
+    color: grey;
 }
