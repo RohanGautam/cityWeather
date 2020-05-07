@@ -1,5 +1,12 @@
 # CityWeather
 
+# References :
+* [card component](https://akveo.github.io/nebular/docs/components/card/overview#nbcardcomponent)
+* [adding bootstrap to angular](https://www.smashingmagazine.com/2019/02/angular-application-bootstrap/)
+* [bootstrap grid system](https://getbootstrap.com/docs/4.1/layout/grid/)
+* [Openweather map api docs](https://openweathermap.org/current)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
 
 ## Development server
