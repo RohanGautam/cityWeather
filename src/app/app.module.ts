@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbInputModule, NbIconModule, NbFormFieldModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbInputModule, NbIconModule, NbFormFieldModule, NbButtonModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { WeatherPanelComponent } from './weather-panel/weather-panel.component';
 import { WeatherDataService } from './weather-data.service';
 import { FormsModule } from '@angular/forms';
+import { JsonPipe } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { FormsModule } from '@angular/forms';
     NbIconModule,
     NbFormFieldModule,
     NbButtonModule,
+    NbSpinnerModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [WeatherDataService],
+  providers: [WeatherDataService, JsonPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

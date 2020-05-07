@@ -1,4 +1,4 @@
-<nb-card size="small" (click)="showSearchBar()" class="card">
+<nb-card size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse">
     <nb-card-body>
         <nb-form-field *ngIf="wantToSearch">
             <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
@@ -6,5 +6,7 @@
               <nb-icon icon="search-outline"></nb-icon>
             </button>
           </nb-form-field>
+
+          <p *ngIf="validResponse"> {{mainWeatherType}} </p>
     </nb-card-body>
 </nb-card>

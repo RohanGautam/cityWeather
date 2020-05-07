@@ -5,6 +5,7 @@
 * [adding bootstrap to angular](https://www.smashingmagazine.com/2019/02/angular-application-bootstrap/)
 * [bootstrap grid system](https://getbootstrap.com/docs/4.1/layout/grid/)
 * [Openweather map api docs](https://openweathermap.org/current)
+* [Angular Http client and json pipe for debugging](https://www.youtube.com/watch?v=_05v0mrNLh0&t=219s)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.

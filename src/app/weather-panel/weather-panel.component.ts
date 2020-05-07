@@ -8,27 +8,38 @@ import { WeatherDataService } from '../weather-data.service';
 })
 export class WeatherPanelComponent implements OnInit {
 
-  weatherData:any;
+  weatherData;
   wantToSearch:boolean=false;
+  searching:boolean=false;
   validResponse:boolean=false;
   cityInput:string;
+
+  mainWeatherType:string;
 
   constructor(public wdObj:WeatherDataService) { }
 
   ngOnInit(): void {
-    this.getData();
+    // this.getData();
   }
 
-  async getData(){
-    this.weatherData = await this.wdObj.getData("Bangalore")
+  async getData(cityName:string){
+    
+    this.weatherData = await this.wdObj.getData(cityName)    
     let statusCode:number = this.weatherData['cod']
     if(statusCode==200){
-      this.validResponse=true
-    }
+      this.validResponse=true;
+      console.log(this.weatherData);
+      this.mainWeatherType=this.weatherData['weather'][0]['main'];
+      console.log(this.mainWeatherType);      
+    } 
   }
 
-  search(){
+  async search(){
     console.log(this.cityInput);
+    this.validResponse=false;
+    this.searching=true;    
+    await this.getData(this.cityInput);
+    this.searching=false;
   }
 
   showSearchBar(){
