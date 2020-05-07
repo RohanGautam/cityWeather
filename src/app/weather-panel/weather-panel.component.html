@@ -14,7 +14,7 @@
         <img id="placeholderImg" [src]="placeholderPath" alt="">   
         <h4 id="placeHolderText">Click card to add a city!</h4>   
     </div>
-    <nb-form-field *ngIf="wantToSearch" id="formField">
+    <div id="formField" *ngIf="wantToSearch" >
         <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
         <button nbButton (click)="search()" (keyup.enter)="search()" shape="round" id="searchButton"
             style="margin-left: 8px;">
@@ -24,7 +24,7 @@
             <button (click)="null" *ngIf="errorInInput" nbButton status="danger" style="margin: 8px;">Invalid query, try
                 again!</button>
         </div>
-    </nb-form-field>
+    </div>
 
     <div *ngIf="validResponse">
         <h1 id="cityName">{{cityInput}}</h1>
