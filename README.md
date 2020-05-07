@@ -4,7 +4,7 @@
 * [card component](https://akveo.github.io/nebular/docs/components/card/overview#nbcardcomponent)
 * [adding bootstrap to angular](https://www.smashingmagazine.com/2019/02/angular-application-bootstrap/)
 * [bootstrap grid system](https://getbootstrap.com/docs/4.1/layout/grid/)
-* [Openweather map api docs](https://openweathermap.org/current)
+* [Openweather map api docs](https://openweathermap.org/current#current_JSON)
 * [Angular Http client and json pipe for debugging](https://www.youtube.com/watch?v=_05v0mrNLh0&t=219s)
 * [get input from input field](https://stackoverflow.com/questions/56203795/get-value-input-text-with-button-angular-7)
 * [changing background image with ngStyle](https://stackoverflow.com/a/34875479)
