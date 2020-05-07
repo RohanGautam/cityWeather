@@ -1,4 +1,4 @@
-<div size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse">
+<div size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse" [ngStyle]="{'background-image': 'url(' + imageMap[mainWeatherType] + ')'}">
     <!-- <nb-card-body> -->
     <nb-form-field *ngIf="wantToSearch">
         <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
@@ -9,7 +9,7 @@
 
     <div *ngIf="validResponse">
         <p> {{mainWeatherType}} </p>
-        <img id="weatherImg" [src]="imageMap[mainWeatherType]" alt="" style="width: 100px;height: auto;">
+        <!-- <img id="weatherImg" [src]="imageMap[mainWeatherType]" alt="" style="width: 100px;height: auto;"> -->
         <!-- <img [src]="'http://openweathermap.org/img/wn/'+iconId+'.png'" alt="weather icon"> -->
     </div>
     <!-- </nb-card-body> -->
