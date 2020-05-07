@@ -1,8 +1,10 @@
-<p>weather-panel works!</p>
-<nb-card>
+<nb-card size="small" (click)="showSearchBar()" class="card">
     <nb-card-body>
-        A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-        Originally, nebula was a name for any diffuse astronomical object,
-        including galaxies beyond the Milky Way.
+        <nb-form-field *ngIf="wantToSearch">
+            <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
+            <button nbButton  (click)="search()" shape="round" id="searchButton" style="margin-left: 8px;">
+              <nb-icon icon="search-outline"></nb-icon>
+            </button>
+          </nb-form-field>
     </nb-card-body>
 </nb-card>

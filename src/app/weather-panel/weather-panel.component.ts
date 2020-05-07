@@ -9,6 +9,9 @@ import { WeatherDataService } from '../weather-data.service';
 export class WeatherPanelComponent implements OnInit {
 
   weatherData:any;
+  wantToSearch:boolean=false;
+  validResponse:boolean=false;
+  cityInput:string;
 
   constructor(public wdObj:WeatherDataService) { }
 
@@ -18,7 +21,18 @@ export class WeatherPanelComponent implements OnInit {
 
   async getData(){
     this.weatherData = await this.wdObj.getData("Bangalore")
-    console.log(this.weatherData['cod'])
+    let statusCode:number = this.weatherData['cod']
+    if(statusCode==200){
+      this.validResponse=true
+    }
+  }
+
+  search(){
+    console.log(this.cityInput);
+  }
+
+  showSearchBar(){
+    this.wantToSearch = true;
   }
 
 }
