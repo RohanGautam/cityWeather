@@ -7,10 +7,14 @@
          'background-position': 'center'
         }">
     <div id="addCityIndicator" *ngIf="!fromCard">
-        <img id="placeholderImg" [src]="placeholderPath" alt="">
-        <h4 id="placeHolderText">Click card to add a city!</h4>
+        <!-- <div class="row">
+            <div class="col-6"><img id="placeholderImg" [src]="placeholderPath" alt=""></div>
+            <div class="col-6"><h4 id="placeHolderText">Click card to add a city!</h4></div>
+        </div>   -->
+        <img id="placeholderImg" [src]="placeholderPath" alt="">   
+        <h4 id="placeHolderText">Click card to add a city!</h4>   
     </div>
-    <nb-form-field *ngIf="wantToSearch">
+    <nb-form-field *ngIf="wantToSearch" id="formField">
         <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
         <button nbButton (click)="search()" (keyup.enter)="search()" shape="round" id="searchButton"
             style="margin-left: 8px;">

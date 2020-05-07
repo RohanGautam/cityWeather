@@ -1,7 +1,7 @@
 .card {
-    width: 100%;
+    width: 100em;
+    height: 23em;
     // max-width: 300px;
-    height: 300px;
     // max-height: 400px;
     display: flex;
     justify-content: center;
@@ -35,7 +35,6 @@
     width: 100%;
     border: 2px dashed #ccc;
     border-radius: 20px;
-    width: 480px;
     font-family: sans-serif;
     margin: 8px auto;
     padding: 20px;
@@ -44,12 +43,25 @@
     align-items: center;
 }
 
-#placeholderImg{
+#placeholderImg {
     height: 40%;
     width: auto;
-    filter: brightness(90%)
+    filter: brightness(90%);
 }
 
-#placeHolderText{
+#placeHolderText {
     color: grey;
+}
+
+#formField {
+    height: 100%;
+    width: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    font-family: sans-serif;
+    margin: 8px auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
