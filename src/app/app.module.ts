@@ -31,7 +31,7 @@ import { JsonPipe } from "@angular/common";
     NbButtonModule,
     NbSpinnerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [WeatherDataService, JsonPipe],
   bootstrap: [AppComponent]

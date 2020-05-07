@@ -15,15 +15,19 @@
         <h4 id="placeHolderText">Click card to add a city!</h4>   
     </div>
     <div id="formField" *ngIf="wantToSearch" >
-        <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
+        <input type="text" fieldSize="large" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name .." style="width: 100%;">
         <button nbButton (click)="search()" (keyup.enter)="search()" shape="round" id="searchButton"
-            style="margin-left: 8px;">
+            style="margin: 8px;">
+            Search
             <nb-icon icon="search-outline"></nb-icon>
         </button>
         <div>
-            <button (click)="null" *ngIf="errorInInput" nbButton status="danger" style="margin: 8px;">Invalid query, try
-                again!</button>
+            <button (click)="null" *ngIf="errorInInput" nbButton status="danger" style="margin: 8px;">
+                <nb-icon icon="close-circle-outline"></nb-icon>
+                Invalid query, try again!
+            </button>
         </div>
+        <div style="height: 5em;"></div>
     </div>
 
     <div *ngIf="validResponse">

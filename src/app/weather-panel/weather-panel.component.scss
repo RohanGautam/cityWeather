@@ -56,12 +56,14 @@
 #formField {
     height: 100%;
     width: 100%;
-    border: 2px dashed #ccc;
     border-radius: 20px;
     font-family: sans-serif;
     margin: 8px auto;
     padding: 20px;
-    display: flex;
+    // display: flex;
+    display: grid;
+    grid-template-columns: auto;
     justify-content: center;
     align-items: center;
+    overflow: scroll
 }

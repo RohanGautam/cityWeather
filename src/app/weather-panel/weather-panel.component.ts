@@ -63,8 +63,6 @@ export class WeatherPanelComponent implements OnInit {
 
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
       this.iconId=this.weatherData['weather'][0]['icon'];
-      console.log(this.iconId);     
-      console.log(this.iconId);     
       this.wantToSearch=false; 
       this.errorInInput=false;
     } else{
