@@ -1,4 +1,10 @@
-<div size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse" [ngStyle]="{'background-image': 'url(' + imageMap[mainWeatherType] + ')'}">
+<div size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse" [ngStyle]="{
+        'background-image': 'url(' + imageMap[mainWeatherType] + ')',
+         'background-size': 'contain', 
+         'background-repeat': 'no-repeat',
+         'width': '100%',
+         'background-position': 'center'
+        }">
     <!-- <nb-card-body> -->
     <nb-form-field *ngIf="wantToSearch">
         <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
