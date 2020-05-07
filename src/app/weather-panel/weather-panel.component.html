@@ -1,16 +1,16 @@
-<nb-card size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse">
-    <nb-card-body>
-        <nb-form-field *ngIf="wantToSearch">
-            <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
-            <button nbButton  (click)="search()" shape="round" id="searchButton" style="margin-left: 8px;">
-              <nb-icon icon="search-outline"></nb-icon>
-            </button>
-          </nb-form-field>
+<div size="small" (click)="showSearchBar()" class="card" [nbSpinner]="searching && !validResponse">
+    <!-- <nb-card-body> -->
+    <nb-form-field *ngIf="wantToSearch">
+        <input type="text" shape="round" [(ngModel)]="cityInput" required nbInput placeholder="Enter city name ..">
+        <button nbButton (click)="search()" shape="round" id="searchButton" style="margin-left: 8px;">
+            <nb-icon icon="search-outline"></nb-icon>
+        </button>
+    </nb-form-field>
 
-          <div *ngIf="validResponse">
-              <p > {{mainWeatherType}} </p>
-              <img [src]="imageMap[mainWeatherType]" alt="">
-              <!-- <img [src]="'http://openweathermap.org/img/wn/'+iconId+'.png'" alt="weather icon"> -->
-          </div>
-    </nb-card-body>
-</nb-card>
+    <div *ngIf="validResponse">
+        <p> {{mainWeatherType}} </p>
+        <img id="weatherImg" [src]="imageMap[mainWeatherType]" alt="" style="width: 100px;height: auto;">
+        <!-- <img [src]="'http://openweathermap.org/img/wn/'+iconId+'.png'" alt="weather icon"> -->
+    </div>
+    <!-- </nb-card-body> -->
+</div>

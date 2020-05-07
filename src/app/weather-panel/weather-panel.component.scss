@@ -1,6 +1,10 @@
 .card{
+    width: 100%;
+    // max-width: 300px;
+    height: 300px;
+    // max-height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 8px;
 }
-

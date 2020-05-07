@@ -65,4 +65,5 @@ export class WeatherPanelComponent implements OnInit {
     this.wantToSearch = true;
   }
 
+
 }
