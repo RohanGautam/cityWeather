@@ -14,7 +14,25 @@ export class WeatherPanelComponent implements OnInit {
   validResponse:boolean=false;
   cityInput:string;
 
+  // image mapping - make class?
+  imageMap = {
+    'Clouds': 'assets/images/weather/clouds.png',
+    'Clear': 'assets/images/weather/windy.png',
+    'Snow': 'assets/images/weather/snow.png',
+    'Rain': 'assets/images/weather/umbrellas.png',
+    'Drizzle': 'assets/images/weather/umbrellas.png',
+    'ThunderStorm': 'assets/images/weather/storm.png',
+    'Tornado': 'assets/images/weather/tornado.png',
+    'Haze': 'assets/images/weather/wind-4.png',
+    'Fog': 'assets/images/weather/snowing.png',
+    'Dust': 'assets/images/weather/dust.png',
+    'Sand': 'assets/images/weather/dust.png',
+    'Mist': 'assets/images/weather/mist.png',
+  }
+  
+  // encapsulate in interface
   mainWeatherType:string;
+  iconId:string;
 
   constructor(public wdObj:WeatherDataService) { }
 
@@ -30,7 +48,8 @@ export class WeatherPanelComponent implements OnInit {
       this.validResponse=true;
       console.log(this.weatherData);
       this.mainWeatherType=this.weatherData['weather'][0]['main'];
-      console.log(this.mainWeatherType);      
+      this.iconId=this.weatherData['weather'][0]['icon'];
+      console.log(this.iconId);      
     } 
   }
 

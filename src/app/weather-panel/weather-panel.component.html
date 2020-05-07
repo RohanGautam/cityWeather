@@ -7,6 +7,10 @@
             </button>
           </nb-form-field>
 
-          <p *ngIf="validResponse"> {{mainWeatherType}} </p>
+          <div *ngIf="validResponse">
+              <p > {{mainWeatherType}} </p>
+              <img [src]="imageMap[mainWeatherType]" alt="">
+              <!-- <img [src]="'http://openweathermap.org/img/wn/'+iconId+'.png'" alt="weather icon"> -->
+          </div>
     </nb-card-body>
 </nb-card>
