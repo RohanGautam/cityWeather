@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cityWeather';
+  weatherComponentIds = Array(9).fill(null);
 }

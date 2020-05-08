@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { WeatherDataService } from '../weather-data.service';
 import { WeatherResponse } from '../weatherResponse';
 
@@ -8,6 +8,7 @@ import { WeatherResponse } from '../weatherResponse';
   styleUrls: ['./weather-panel.component.scss']
 })
 export class WeatherPanelComponent implements OnInit {
+  @Input() componentId : number;
 
   weatherData:WeatherResponse;
   
@@ -29,7 +30,7 @@ export class WeatherPanelComponent implements OnInit {
   constructor(public wdObj:WeatherDataService) {}
 
   ngOnInit(): void {
-    // this.getData();
+    console.log(`My id is ${this.componentId}! `)
   }
 
   async getData(cityName:string){

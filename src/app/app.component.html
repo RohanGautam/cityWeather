@@ -7,15 +7,9 @@
 
   <nb-layout-column id="componentsDrawer">
     <div class="row justify-content-center" >
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
-      <div class="col-sm col-md-6 col-xl-4"><app-weather-panel></app-weather-panel></div>
+      <div class="col-sm col-md-6 col-xl-4" *ngFor="let _ of weatherComponentIds;let id=index;">
+        <app-weather-panel [componentId]="id"></app-weather-panel>
+      </div>
     </div>    
     <router-outlet></router-outlet>
   </nb-layout-column>
