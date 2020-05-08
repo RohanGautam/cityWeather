@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { WeatherDataService } from '../weather-data.service';
 import { WeatherResponse } from '../weatherResponse';
 import { OnlineOfflineService } from '../online-offline.service';
+import { interval, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-weather-panel',
@@ -12,6 +13,8 @@ export class WeatherPanelComponent implements OnInit {
   @Input() componentId: number;
 
   weatherData: WeatherResponse;
+  dataRefresher :Subscription;
+  refreshFrequency=10000;// 10 seconds for now
 
   // some booleans we manipulate for *ngIf's to conditionally render content
   wantToSearch: boolean = false;
@@ -35,7 +38,7 @@ export class WeatherPanelComponent implements OnInit {
   
   async ngOnInit() {
     this.showOfflineMessage = !this.onlineOfflineService.isOnline;
-    // do only if offline? or even on refreshing online
+    // check for stored values even on refreshing when online
     const storedData: WeatherResponse = await this.wdObj.getOfflineData(this.componentId)
     if (storedData != null) {
       this.validResponse = true;
@@ -52,10 +55,8 @@ export class WeatherPanelComponent implements OnInit {
   private registerToEvents(onlineOfflineService: OnlineOfflineService) {
     onlineOfflineService.connectionChanged.subscribe(online => {
       if (online) {
-        // console.log("Back online");
         this.showOfflineMessage=false;
       } else {
-        // console.log('Went offline. retrieving values from indexdb');
         this.showOfflineMessage=true;
       }
     });
@@ -79,11 +80,26 @@ export class WeatherPanelComponent implements OnInit {
 
   }
 
+  async beginCalling (cityName: string){
+    // get the data initially before beginning subscription
+    await this.getData(cityName);
+    // unsubscribe if a subscription/reference already exists
+    if (this.dataRefresher!=null){
+      this.dataRefresher.unsubscribe();
+    }
+    // begin a new  subscription
+    this.dataRefresher = interval(this.refreshFrequency).subscribe(x => {
+      console.log(`Getting data again in component ${this.componentId}`);       
+      this.getData(cityName);
+    })
+
+  }
+
   async search() {
     console.log(this.cityInput);
     this.validResponse = false;
     this.searching = true;
-    await this.getData(this.cityInput);
+    await this.beginCalling(this.cityInput);
     this.searching = false;
   }
 
