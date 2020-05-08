@@ -4,15 +4,19 @@
 ## Specification fulfillment overview
 * 9 panels, with a text box appearing on click
 <img src = "./readme_images/spec1.png" width = 450>
+
 * Edit button to modify city data shown on panel. Also, background picture in panel based on weather condition.
 <img src = "./readme_images/spec2.png" width = 450>
+
 * Error displayed on wrong city name
 <img src = "./readme_images/spec3.png" width = 450>
+
 * Responsive design
 
 | Big size  | Medium size  | Small size  | Mobile  | 
 |---|---|---|---|
 | <img src = "./readme_images/spec4-1.png" width = 450>  |<img src = "./readme_images/spec4-2.png" width = 450>    | <img src = "./readme_images/spec4-3.png" width = 450>   | <img src = "./readme_images/spec4-4.png" width = 450>   | 
+
 ### Bonus:
 * Data is updated every 10 seconds, only for components that have been initialized (as can be seen in the console logs)
 <img src = "./readme_images/spec5.png" width = 450>
