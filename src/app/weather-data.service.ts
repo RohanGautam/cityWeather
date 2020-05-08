@@ -93,23 +93,16 @@ export class WeatherDataService {
   }
 
   private addToIndexedDb(data: WeatherResponse) {
-    console.log(`Adding data from component ${data.requestorId} to db..`)
     this.db.weatherData
       .put(data) // adds new or replaces existing one
       .then(async () => {
         const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
-        console.log('saved in DB, DB is now', allItems);
-        // // query test
-        // let id:number=2;
-        // console.log(`Running query: get requestorId ${id}'s entry`);
-        // console.log(await this.getOfflineData(id)==null);
-
+        // console.log('saved in offline DB, DB is now', allItems);
       })
       .catch(async(err) => {
         console.log(err);
         const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
         console.log('DB is', allItems);
-
       })
   }
 

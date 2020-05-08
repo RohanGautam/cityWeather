@@ -38,6 +38,10 @@ export class WeatherPanelComponent implements OnInit {
   
   async ngOnInit() {
     this.showOfflineMessage = !this.onlineOfflineService.isOnline;
+    this.getDataIfStoredOffline();
+  }
+
+  private async getDataIfStoredOffline() {
     // check for stored values even on refreshing when online
     const storedData: WeatherResponse = await this.wdObj.getOfflineData(this.componentId)
     if (storedData != null) {
@@ -48,8 +52,12 @@ export class WeatherPanelComponent implements OnInit {
 
       this.weatherData = storedData;
       this.imageUrl = this.weatherData.imageUrl;
+      // begin making refresh calls if online
+      if (!this.showOfflineMessage){
+        this.beginCalling(this.weatherData.cityName);
+      }
     }
-
+    
   }
 
   private registerToEvents(onlineOfflineService: OnlineOfflineService) {
@@ -71,7 +79,7 @@ export class WeatherPanelComponent implements OnInit {
         this.wantToSearch = false;
         this.errorInInput = false;
   
-        console.log(this.weatherData);
+        // console.log(`Parsed API response -> ${this.weatherData}`);
         this.imageUrl = this.weatherData.imageUrl;
       } else {
         this.errorInInput = true;
@@ -96,7 +104,6 @@ export class WeatherPanelComponent implements OnInit {
   }
 
   async search() {
-    console.log(this.cityInput);
     this.validResponse = false;
     this.searching = true;
     await this.beginCalling(this.cityInput);
