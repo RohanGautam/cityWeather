@@ -79,14 +79,14 @@ export class WeatherDataService {
       if (online) {
         console.log("Back online");
       } else {
-        console.log('Went offline. storing values in indexdb');
+        console.log('Went offline. retrieving values from indexdb');
       }
     });
   }
   private createOfflineDb() {
     this.db = new Dexie('MyTestDatabase'); // create database with indexDb
-    this.db.delete()
-    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
+    // this.db.delete() // in case previous instance present
+    // this.db = new Dexie('MyTestDatabase'); // create database with indexDb
     this.db.version(1).stores({
       weatherData: 'requestorId,cityName,main,description,imgUrl,tempMax,tempMin,code'
     });
@@ -99,17 +99,23 @@ export class WeatherDataService {
       .then(async () => {
         const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
         console.log('saved in DB, DB is now', allItems);
+        // // query test
+        // let id:number=2;
+        // console.log(`Running query: get requestorId ${id}'s entry`);
+        // console.log(await this.getOfflineData(id)==null);
+
       })
       .catch(async(err) => {
         console.log(err);
-        console.log('Value already in database');
         const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
         console.log('DB is', allItems);
 
       })
   }
 
-  private async getOfflineData(requestorId:number){}
+  async getOfflineData(requestorId:number):Promise<WeatherResponse>|null{
+    return await this.db.weatherData.get({'requestorId':requestorId})
+  }
 
   private async sendItemsFromIndexedDb() {
     const allItems: WeatherResponse[] = await this.db.weatherData.toArray();

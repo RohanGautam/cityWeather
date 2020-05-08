@@ -12,6 +12,7 @@
 * [Use em instead of px for a responsive-fixed-height kinda situation](https://stackoverflow.com/questions/609517/why-em-instead-of-px)
 * [Display inline stuff](https://stackoverflow.com/a/403149)
 * [online-offline and indexdb handling](https://offering.solutions/blog/articles/2018/11/21/online-and-offline-sync-with-angular-and-indexeddb/)
+* [Add new or update current entry with `put`](https://dexie.org/docs/Table/Table.put())
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
