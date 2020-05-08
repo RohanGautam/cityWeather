@@ -11,6 +11,7 @@ import { WeatherPanelComponent } from './weather-panel/weather-panel.component';
 import { WeatherDataService } from './weather-data.service';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from "@angular/common";
+import { OnlineOfflineService } from './online-offline.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { JsonPipe } from "@angular/common";
     HttpClientModule,
     FormsModule,
   ],
-  providers: [WeatherDataService, JsonPipe],
+  providers: [WeatherDataService, JsonPipe, OnlineOfflineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

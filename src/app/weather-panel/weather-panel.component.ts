@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherDataService } from '../weather-data.service';
 import { WeatherResponse } from '../weatherResponse';
+import { OnlineOfflineService } from '../online-offline.service';
 
 @Component({
   selector: 'app-weather-panel',
@@ -43,10 +44,22 @@ export class WeatherPanelComponent implements OnInit {
   tempMax:string;
   tempMin:string;
 
-  constructor(public wdObj:WeatherDataService) { }
+  constructor(public wdObj:WeatherDataService, private onlineOfflineService: OnlineOfflineService) {
+    this.registerToEvents(onlineOfflineService);
+  }
 
   ngOnInit(): void {
     // this.getData();
+  }
+
+  private registerToEvents(onlineOfflineService: OnlineOfflineService){
+    onlineOfflineService.connectionChanged.subscribe(online => {
+      if(online){
+        console.log("Back online");        
+      } else {
+        console.log('Went offline. storing values in indexdb');
+      }
+    });
   }
 
   async getData(cityName:string){
