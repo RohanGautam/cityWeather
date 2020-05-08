@@ -1,4 +1,5 @@
 # CityWeather
+<img align="center" src = "./readme_images/preview.png" width = 450>
 
 > Tested on Firefox 75. Chrome does not allow loading `localhost` urls without an internet connection (weird, ik)
 ## Specification fulfillment overview

@@ -19,7 +19,7 @@ export class WeatherDataService {
     'Snow': 'assets/images/weather/snow.png',
     'Rain': 'assets/images/weather/umbrellas.png',
     'Drizzle': 'assets/images/weather/umbrellas.png',
-    'ThunderStorm': 'assets/images/weather/storm.png',
+    'Thunderstorm': 'assets/images/weather/storm.png',
     'Tornado': 'assets/images/weather/tornado.png',
     'Haze': 'assets/images/weather/wind-4.png',
     'Fog': 'assets/images/weather/snowing.png',
