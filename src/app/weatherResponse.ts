@@ -1,7 +1,9 @@
 export interface WeatherResponse{
-    main:string;
-    icon:string|null;
-    name:string;
-    tempMax;
-    tempMin;
+    cityName:string|null;
+    main:string|null;
+    description:string|null;
+    imageUrl:string|null;
+    tempMax:string|null;
+    tempMin:string|null;
+    code:number;
 }

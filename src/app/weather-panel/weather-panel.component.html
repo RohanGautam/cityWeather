@@ -1,6 +1,6 @@
 <div size="small" (click)="!fromCard?showSearchBar():null" class="card" [nbSpinner]="searching && !validResponse"
     [ngStyle]="{
-        'background-image': 'url(' + imageMap[mainWeatherType] + ')',
+        'background-image': 'url(' + imageUrl + ')',
          'background-size': 'contain', 
          'background-repeat': 'no-repeat',
          'width': '100%',
@@ -36,13 +36,13 @@
             <nb-icon icon="edit-outline"></nb-icon>
         </button>
         <h1 id="cityName">{{cityInput}}</h1>
-        <p id="weatherDescription"> {{weatherDescription}} </p>
+        <p id="weatherDescription"> {{weatherData.description}} </p>
 
         <div id="temperature">
             <span><nb-icon icon="thermometer-plus-outline"></nb-icon></span>
-            <span>Max is {{tempMax}} </span>
+            <span>Max is {{weatherData.tempMax}} </span>
             <span><nb-icon icon="thermometer-minus-outline"></nb-icon></span>
-            <span>Min is {{tempMin}}</span>
+            <span>Min is {{weatherData.tempMin}}</span>
         </div>
 
         <!-- <img id="weatherImg" [src]="imageMap[mainWeatherType]" alt="" style="width: 100px;height: auto;"> -->
