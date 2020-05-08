@@ -30,12 +30,11 @@ export class WeatherPanelComponent implements OnInit {
   constructor(public wdObj:WeatherDataService) {}
 
   ngOnInit(): void {
-    console.log(`My id is ${this.componentId}! `)
   }
 
   async getData(cityName:string){
     
-    this.weatherData = await this.wdObj.getData(cityName)    
+    this.weatherData = await this.wdObj.getData(cityName, this.componentId);    
     let statusCode:number = this.weatherData.code;
     if(statusCode==200){
       this.validResponse=true;      

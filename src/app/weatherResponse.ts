@@ -6,4 +6,5 @@ export interface WeatherResponse{
     tempMax:string|null;
     tempMin:string|null;
     code:number;
+    requestorId:number;
 }

@@ -8,9 +8,9 @@ import Dexie from 'dexie';
   providedIn: 'root'
 })
 export class WeatherDataService {
-  private APIkey : string ="8cc6aaa67b474fd136057f0d738cbad3"
+  private APIkey: string = "8cc6aaa67b474fd136057f0d738cbad3"
   private dataRecieved;
-  weatherData:WeatherResponse;
+  weatherData: WeatherResponse;
   db;
 
   private imageMap = {
@@ -32,67 +32,88 @@ export class WeatherDataService {
     this.registerToEvents(onlineOfflineService);
     this.createOfflineDb()
   }
-  
-  private callAPI(cityName:string){
+
+  private callAPI(cityName: string) {
     var url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${this.APIkey}`
     return this.http.get(url);
   }
 
-  async getData(cityName:string):Promise<WeatherResponse>{
-    try{
-      this.dataRecieved = await this.callAPI(cityName).toPromise();
-      this.weatherData = {
-        cityName : this.dataRecieved['name'],
-        main : this.dataRecieved['weather'][0]['main'],
-        description : this.dataRecieved['weather'][0]['description'],
-        imageUrl : this.imageMap[this.dataRecieved['weather'][0]['main']],
-        tempMax: (this.dataRecieved['main']['temp_max'] - 273.15).toFixed(2),
-        tempMin: (this.dataRecieved['main']['temp_min'] - 273.15).toFixed(2),
-        code: this.dataRecieved['cod']
+  async getData(cityName: string, requestorId: number): Promise<WeatherResponse> {
+    try {
+      if (this.onlineOfflineService.isOnline) {
+        this.dataRecieved = await this.callAPI(cityName).toPromise();
+        this.weatherData = {
+          cityName: this.dataRecieved['name'],
+          main: this.dataRecieved['weather'][0]['main'],
+          description: this.dataRecieved['weather'][0]['description'],
+          imageUrl: this.imageMap[this.dataRecieved['weather'][0]['main']],
+          tempMax: (this.dataRecieved['main']['temp_max'] - 273.15).toFixed(2),
+          tempMin: (this.dataRecieved['main']['temp_min'] - 273.15).toFixed(2),
+          code: this.dataRecieved['cod'],
+          requestorId: requestorId
+        }
+        this.addToIndexedDb(this.weatherData);
+        return this.weatherData;
+      } else {
+        // if offline, get the stored data from indexedDb and return that
+
       }
-      return this.weatherData;
-    } catch(error){
+
+    } catch (error) {
       this.weatherData = {
-        cityName:null,
-        main:null,
-        description:null,
-        imageUrl:null,
-        tempMax:null,
-        tempMin:null,
-        code:error.status
+        cityName: null,
+        main: null,
+        description: null,
+        imageUrl: null,
+        tempMax: null,
+        tempMin: null,
+        code: error.status,
+        requestorId:requestorId
       }
       return this.weatherData;
     }
   }
 
-  private registerToEvents(onlineOfflineService: OnlineOfflineService){
+  private registerToEvents(onlineOfflineService: OnlineOfflineService) {
     onlineOfflineService.connectionChanged.subscribe(online => {
-      if(online){
-        console.log("Back online");        
+      if (online) {
+        console.log("Back online");
       } else {
         console.log('Went offline. storing values in indexdb');
       }
     });
   }
-  private createOfflineDb(){
+  private createOfflineDb() {
+    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
+    this.db.delete()
     this.db = new Dexie('MyTestDatabase'); // create database with indexDb
     this.db.version(1).stores({
-      weatherData: 'cityName,main,description,imgUrl,tempMax,tempMin,code'
+      weatherData: 'requestorId,cityName,main,description,imgUrl,tempMax,tempMin,code'
     });
   }
-  
-  private addToIndexedDb(data: WeatherResponse){
+
+  private addToIndexedDb(data: WeatherResponse) {
+    console.log(`Adding data from component ${data.requestorId} to db..`)
     this.db.weatherData
-    .add(data)
-    .then(async()=>{
-      const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
-      console.log('saved in DB, DB is now', allItems);
-    })
+      .put(data) // adds new or replaces existing one
+      .then(async () => {
+        const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
+        console.log('saved in DB, DB is now', allItems);
+      })
+      .catch(async(err) => {
+        console.log(err);
+        console.log('Value already in database');
+        const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
+        console.log('DB is', allItems);
+
+      })
   }
+
+  private async getOfflineData(requestorId:number){}
 
   private async sendItemsFromIndexedDb() {
     const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
-  
+
     allItems.forEach((item: WeatherResponse) => {
       // send items to backend...
       this.db.todos.delete(item.cityName).then(() => {
