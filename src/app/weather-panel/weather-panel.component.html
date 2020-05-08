@@ -34,7 +34,7 @@
         <!-- <div style="height: 5em;"></div> -->
     </div>
 
-    <div *ngIf="validResponse">
+    <div *ngIf="validResponse && !fromEditButton">
         <button nbButton (click)="edit()" shape="round" id="editButton">
             <nb-icon icon="edit-outline"></nb-icon>
         </button>

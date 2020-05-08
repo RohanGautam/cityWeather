@@ -13,8 +13,8 @@ export class WeatherPanelComponent implements OnInit {
   @Input() componentId: number;
 
   weatherData: WeatherResponse;
-  dataRefresher :Subscription;
-  refreshFrequency=10000;// 10 seconds for now
+  dataRefresher: Subscription;
+  refreshFrequency = 10000;// 10 seconds for now
 
   // some booleans we manipulate for *ngIf's to conditionally render content
   wantToSearch: boolean = false;
@@ -23,6 +23,7 @@ export class WeatherPanelComponent implements OnInit {
   errorInInput: boolean = false;
   showOfflineMessage: boolean;
   validResponse: boolean = false;
+  fromEditButton: boolean = false;
   // stores text typed in search box
   cityInput: string;
   // image path for picure shown on unclicked card
@@ -32,10 +33,10 @@ export class WeatherPanelComponent implements OnInit {
 
   db;
 
-  constructor(public wdObj: WeatherDataService, public onlineOfflineService: OnlineOfflineService) { 
+  constructor(public wdObj: WeatherDataService, public onlineOfflineService: OnlineOfflineService) {
     this.registerToEvents(onlineOfflineService);
   }
-  
+
   async ngOnInit() {
     this.showOfflineMessage = !this.onlineOfflineService.isOnline;
     this.getDataIfStoredOffline();
@@ -53,19 +54,26 @@ export class WeatherPanelComponent implements OnInit {
       this.weatherData = storedData;
       this.imageUrl = this.weatherData.imageUrl;
       // begin making refresh calls if online
-      if (!this.showOfflineMessage){
+      if (!this.showOfflineMessage) {
         this.beginCalling(this.weatherData.cityName);
       }
     }
-    
+
   }
 
   private registerToEvents(onlineOfflineService: OnlineOfflineService) {
     onlineOfflineService.connectionChanged.subscribe(online => {
       if (online) {
-        this.showOfflineMessage=false;
+        this.showOfflineMessage = false;
+        if (this.weatherData != null) {
+          this.beginCalling(this.weatherData.cityName);
+        }
       } else {
-        this.showOfflineMessage=true;
+        this.showOfflineMessage = true;
+        // unsubscribe if going offline
+        if (this.dataRefresher != null) {
+          this.dataRefresher.unsubscribe();
+        }
       }
     });
   }
@@ -76,9 +84,12 @@ export class WeatherPanelComponent implements OnInit {
       let statusCode: number = this.weatherData.code;
       if (statusCode == 200) {
         this.validResponse = true;
-        this.wantToSearch = false;
+        // if there's  a get call, and the edit button in still true, means the get is a background fetch. change only if its false.
+        if (!this.fromEditButton){
+          this.wantToSearch = false;
+        }
         this.errorInInput = false;
-  
+
         // console.log(`Parsed API response -> ${this.weatherData}`);
         this.imageUrl = this.weatherData.imageUrl;
       } else {
@@ -88,16 +99,16 @@ export class WeatherPanelComponent implements OnInit {
 
   }
 
-  async beginCalling (cityName: string){
+  async beginCalling(cityName: string) {
     // get the data initially before beginning subscription
     await this.getData(cityName);
     // unsubscribe if a subscription/reference already exists
-    if (this.dataRefresher!=null){
+    if (this.dataRefresher != null) {
       this.dataRefresher.unsubscribe();
     }
     // begin a new  subscription
     this.dataRefresher = interval(this.refreshFrequency).subscribe(x => {
-      console.log(`Getting data again in component ${this.componentId}`);       
+      console.log(`Getting data again in component ${this.componentId}`);
       this.getData(cityName);
     })
 
@@ -105,19 +116,21 @@ export class WeatherPanelComponent implements OnInit {
 
   async search() {
     this.validResponse = false;
+    this.fromEditButton=false;
     this.searching = true;
     await this.beginCalling(this.cityInput);
     this.searching = false;
   }
 
   showSearchBar() {
-    if (!this.showOfflineMessage){
+    if (!this.showOfflineMessage) {
       this.wantToSearch = true;
       this.fromCard = true;
     }
   }
 
   edit() {
+    this.fromEditButton=true;
     this.wantToSearch = !this.wantToSearch;
     this.validResponse = !this.validResponse;
   }

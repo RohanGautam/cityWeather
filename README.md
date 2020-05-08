@@ -14,6 +14,7 @@
 * [online-offline and indexdb handling](https://offering.solutions/blog/articles/2018/11/21/online-and-offline-sync-with-angular-and-indexeddb/)
 * [Add new or update current entry with `put`](https://dexie.org/docs/Table/Table.put())
 * [Get values from indexedDb table](https://dexie.org/docs/Table/Table.get())
+* [Repeatedly calling stuff](https://stackoverflow.com/a/59101414)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
