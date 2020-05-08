@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherResponse } from './weatherResponse';
+import { OnlineOfflineService } from './online-offline.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class WeatherDataService {
   private dataRecieved;
   weatherData:WeatherResponse;
 
-  imageMap = {
+  private imageMap = {
     'Clouds': 'assets/images/weather/clouds.png',
     'Clear': 'assets/images/weather/windy.png',
     'Snow': 'assets/images/weather/snow.png',
@@ -25,7 +26,10 @@ export class WeatherDataService {
     'Mist': 'assets/images/weather/mist.png',
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private onlineOfflineService: OnlineOfflineService) {
+    this.registerToEvents(onlineOfflineService);
+    // this.createOfflineDb()
+  }
   
   private callAPI(cityName:string){
     var url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${this.APIkey}`
@@ -44,7 +48,6 @@ export class WeatherDataService {
         tempMin: (this.dataRecieved['main']['temp_min'] - 273.15).toFixed(2),
         code: this.dataRecieved['cod']
       }
-      // return this.dataRecieved;
       return this.weatherData;
     } catch(error){
       this.weatherData = {
@@ -56,8 +59,32 @@ export class WeatherDataService {
         tempMin:null,
         code:error.status
       }
-      // return {'cod': error.status};
       return this.weatherData;
     }
   }
+
+  private registerToEvents(onlineOfflineService: OnlineOfflineService){
+    onlineOfflineService.connectionChanged.subscribe(online => {
+      if(online){
+        console.log("Back online");        
+      } else {
+        console.log('Went offline. storing values in indexdb');
+      }
+    });
+  }
+  // private createOfflineDb(){
+  //   this.db = new Dexie('MyTestDatabase'); // create database with indexDb
+  //   this.db.version(1).stores({
+  //     weatherData: 'name,imgUrl,description,tempMax,tempMin'
+  //   });
+  // }
+  // private addToIndexedDb(){
+  //   this.db.weatherData
+  //   .add(this.cityInput, this.imageMap[this.mainWeatherType], this.weatherDescription, this.tempMax, this.tempMin)
+  //   .then(async()=>{
+  //     const allItems = await this.db.weatherData.toArray();
+  //     console.log('saved in DB, DB is now', allItems);
+  //   })
+  // }
+  
 }

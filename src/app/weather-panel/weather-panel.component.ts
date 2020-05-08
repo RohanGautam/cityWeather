@@ -28,38 +28,11 @@ export class WeatherPanelComponent implements OnInit {
 
   db;
 
-  constructor(public wdObj:WeatherDataService, private onlineOfflineService: OnlineOfflineService) {
-    this.registerToEvents(onlineOfflineService);
-    this.createOfflineDb()
-  }
+  constructor(public wdObj:WeatherDataService) {}
 
   ngOnInit(): void {
     // this.getData();
   }
-
-  private registerToEvents(onlineOfflineService: OnlineOfflineService){
-    onlineOfflineService.connectionChanged.subscribe(online => {
-      if(online){
-        console.log("Back online");        
-      } else {
-        console.log('Went offline. storing values in indexdb');
-      }
-    });
-  }
-  private createOfflineDb(){
-    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
-    this.db.version(1).stores({
-      weatherData: 'name,imgUrl,description,tempMax,tempMin'
-    });
-  }
-  // private addToIndexedDb(){
-  //   this.db.weatherData
-  //   .add(this.cityInput, this.imageMap[this.mainWeatherType], this.weatherDescription, this.tempMax, this.tempMin)
-  //   .then(async()=>{
-  //     const allItems = await this.db.weatherData.toArray();
-  //     console.log('saved in DB, DB is now', allItems);
-  //   })
-  // }
 
   async getData(cityName:string){
     
@@ -69,7 +42,7 @@ export class WeatherPanelComponent implements OnInit {
       this.validResponse=true;      
       this.wantToSearch=false; 
       this.errorInInput=false;
-      
+
       console.log(this.weatherData);
       this.imageUrl=this.weatherData.imageUrl;
     } else{
