@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherResponse } from './weatherResponse';
 import { OnlineOfflineService } from './online-offline.service';
+import Dexie from 'dexie';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class WeatherDataService {
   private APIkey : string ="8cc6aaa67b474fd136057f0d738cbad3"
   private dataRecieved;
   weatherData:WeatherResponse;
+  db;
 
   private imageMap = {
     'Clouds': 'assets/images/weather/clouds.png',
@@ -28,7 +30,7 @@ export class WeatherDataService {
 
   constructor(private http: HttpClient, private onlineOfflineService: OnlineOfflineService) {
     this.registerToEvents(onlineOfflineService);
-    // this.createOfflineDb()
+    this.createOfflineDb()
   }
   
   private callAPI(cityName:string){
@@ -72,19 +74,30 @@ export class WeatherDataService {
       }
     });
   }
-  // private createOfflineDb(){
-  //   this.db = new Dexie('MyTestDatabase'); // create database with indexDb
-  //   this.db.version(1).stores({
-  //     weatherData: 'name,imgUrl,description,tempMax,tempMin'
-  //   });
-  // }
-  // private addToIndexedDb(){
-  //   this.db.weatherData
-  //   .add(this.cityInput, this.imageMap[this.mainWeatherType], this.weatherDescription, this.tempMax, this.tempMin)
-  //   .then(async()=>{
-  //     const allItems = await this.db.weatherData.toArray();
-  //     console.log('saved in DB, DB is now', allItems);
-  //   })
-  // }
+  private createOfflineDb(){
+    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
+    this.db.version(1).stores({
+      weatherData: 'cityName,main,description,imgUrl,tempMax,tempMin,code'
+    });
+  }
   
+  private addToIndexedDb(data: WeatherResponse){
+    this.db.weatherData
+    .add(data)
+    .then(async()=>{
+      const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
+      console.log('saved in DB, DB is now', allItems);
+    })
+  }
+
+  private async sendItemsFromIndexedDb() {
+    const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
+  
+    allItems.forEach((item: WeatherResponse) => {
+      // send items to backend...
+      this.db.todos.delete(item.cityName).then(() => {
+        console.log(`item ${item.cityName} sent and deleted locally`);
+      });
+    });
+  }
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherDataService } from '../weather-data.service';
 import { WeatherResponse } from '../weatherResponse';
-import { OnlineOfflineService } from '../online-offline.service';
-import Dexie from 'dexie';
 
 @Component({
   selector: 'app-weather-panel',
