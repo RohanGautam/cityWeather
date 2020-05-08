@@ -2,6 +2,7 @@
 <p align="center">
   <img src = "./readme_images/preview.png" width = 600>
 </p>
+
 > Tested on Firefox 75. Chrome does not allow loading `localhost` urls without an internet connection (weird, ik)
 ## Specification fulfillment overview
 * 9 panels, with a text box appearing on click
