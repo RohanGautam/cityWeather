@@ -117,14 +117,9 @@ export class WeatherDataService {
     return await this.db.weatherData.get({'requestorId':requestorId})
   }
 
-  private async sendItemsFromIndexedDb() {
-    const allItems: WeatherResponse[] = await this.db.weatherData.toArray();
-
-    allItems.forEach((item: WeatherResponse) => {
-      // send items to backend...
-      this.db.todos.delete(item.cityName).then(() => {
-        console.log(`item ${item.cityName} sent and deleted locally`);
-      });
-    });
+  clearIndexDb() {
+    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
+    this.db.delete() // in case previous instance present
+    this.db = new Dexie('MyTestDatabase'); // create database with indexDb
   }
 }

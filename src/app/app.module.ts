@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbInputModule, NbIconModule, NbFormFieldModule, NbButtonModule, NbSpinnerModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbInputModule, NbIconModule, NbFormFieldModule, NbButtonModule, NbSpinnerModule, NbActionsModule, NbTooltipModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { WeatherPanelComponent } from './weather-panel/weather-panel.component';
 import { WeatherDataService } from './weather-data.service';
@@ -33,6 +33,8 @@ import { OnlineOfflineService } from './online-offline.service';
     NbSpinnerModule,
     HttpClientModule,
     FormsModule,
+    NbActionsModule,
+    NbTooltipModule
   ],
   providers: [WeatherDataService, JsonPipe, OnlineOfflineService],
   bootstrap: [AppComponent]

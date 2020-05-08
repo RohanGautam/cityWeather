@@ -1,21 +1,29 @@
 <nb-layout>
 
-  <nb-layout-header fixed>
-    <h1 class="heading text-undefined text-alignment-left text-transform-none">CityWeather</h1>
-    <img class="image" src="/assets/images/default.svg" src="/assets/images/logo.png">
+  <nb-layout-header fixed class="row">
+    <div class="d-inline col-11">
+      <h3>CityWeather
+        <img class="image" src="/assets/images/default.svg" src="/assets/images/logo.png">
+      </h3>
+    </div>
+    <div class="d-none d-sm-inline col-1">
+      <nb-actions>
+        <nb-action icon="trash-2-outline" nbTooltip="Clear indexedDb cache" (click)="clearIndexedDb()"></nb-action>
+      </nb-actions>
+    </div>
   </nb-layout-header>
 
   <nb-layout-column id="componentsDrawer">
-    <div class="row justify-content-center" >
+    <div class="row justify-content-center">
       <div class="col-sm col-md-6 col-xl-4" *ngFor="let _ of weatherComponentIds;let id=index;">
         <app-weather-panel [componentId]="id"></app-weather-panel>
       </div>
-    </div>    
+    </div>
     <router-outlet></router-outlet>
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-  <!-- Insert footer here -->
+    <!-- Insert footer here -->
   </nb-layout-footer>
 
 </nb-layout>

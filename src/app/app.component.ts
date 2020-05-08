@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WeatherDataService } from './weather-data.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'cityWeather';
   weatherComponentIds = Array(9).fill(null);
+
+  constructor(public wdObj: WeatherDataService){    
+  }
+
+  clearIndexedDb(){
+    this.wdObj.clearIndexDb();
+  }
 }
